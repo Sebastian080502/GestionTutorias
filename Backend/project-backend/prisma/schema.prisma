@@ -1,0 +1,58 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+ model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      String
+  createdAt DateTime @default(now())
+  active    Boolean  @default(true)
+  lastLogin DateTime @default(now())
+
+}
+ model Student {
+  id        String      @id @default(uuid())
+  idUser    String
+  programa String
+  semestre String
+  createdAt DateTime @default(now())
+  active   Boolean  @default(true)
+ }
+ model Teacher {
+  id        String     @id @default(uuid())
+  idUser    String
+  especialidad String
+  disponibilidad String
+  createdAt DateTime @default(now())
+  active   Boolean  @default(true)
+ }
+ model Tutorial {
+  id        String      @id @default(uuid())
+  idStudent String
+  idTeacher String
+  fecha     DateTime
+  hora      String
+  estado    String
+  createdAt DateTime @default(now())
+  active   Boolean  @default(true)
+ }
+
+ model Report {
+  id        String     @id @default(uuid())
+  idTutoria String
+  idStudent String
+  idTeacher String
+  fecha     DateTime
+  contenido String
+  createdAt DateTime @default(now())
+  active   Boolean  @default(true)
+ }
