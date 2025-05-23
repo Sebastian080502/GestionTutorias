@@ -1,26 +1,40 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-export class TeacherService {
-  create(createTeacherDto: CreateTeacherDto) {
-    return 'This action adds a new teacher';
+export class TeacherService extends PrismaClient implements OnModuleInit {
+  async onModuleInit() {
+    await this.$connect();
+  }
+
+  async create(createTeacherDto: CreateTeacherDto) {
+    return this.teacher.create({
+      data: {
+        idUser: createTeacherDto.idUser,
+        especialidad: createTeacherDto.especialidad,
+        disponibilidad: createTeacherDto.disponibilidad,
+      },
+    });
   }
 
   findAll() {
-    return `This action returns all teacher`;
+    return this.teacher.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} teacher`;
+  findOne(id: string) {
+    return this.teacher.findUnique({ where: { id } });
   }
 
-  update(id: number, updateTeacherDto: UpdateTeacherDto) {
-    return `This action updates a #${id} teacher`;
+  update(id: string, updateTeacherDto: UpdateTeacherDto) {
+    return this.teacher.update({
+      where: { id },
+      data: updateTeacherDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} teacher`;
+  remove(id: string) {
+    return this.teacher.delete({ where: { id } });
   }
 }

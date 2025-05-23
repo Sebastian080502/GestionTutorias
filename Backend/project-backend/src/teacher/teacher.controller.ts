@@ -8,8 +8,8 @@ export class TeacherController {
   constructor(private readonly teacherService: TeacherService) {}
 
   @Post()
-  create(@Body() createTeacherDto: CreateTeacherDto) {
-    return this.teacherService.create(createTeacherDto);
+ async create(@Body() createTeacherDto: CreateTeacherDto) {
+    return await this.teacherService.create(createTeacherDto);
   }
 
   @Get()
@@ -17,18 +17,13 @@ export class TeacherController {
     return this.teacherService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.teacherService.findOne(+id);
-  }
-
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTeacherDto: UpdateTeacherDto) {
-    return this.teacherService.update(+id, updateTeacherDto);
+    return this.teacherService.update(id, updateTeacherDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.teacherService.remove(+id);
+    return this.teacherService.remove(id);
   }
 }
