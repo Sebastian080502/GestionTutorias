@@ -22,8 +22,8 @@ export default function LoginForm() {
     }
 
     try {
-      await login(email, password); // Usamos el store de Zustand
-      router.push("/tutorial"); // redirige al dashboard o pantalla deseada
+      await login(email, password, role); // Usamos el store de Zustand
+      router.push("/Home"); // redirige al dashboard o pantalla deseada
     } catch (e) {
       // El error ya se maneja desde el store, puedes mostrarlo si es necesario
     }

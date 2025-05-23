@@ -1,7 +1,8 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 export class CreateTeacherDto {
-
+    @IsUUID()
+    @IsNotEmpty()
     idUser:string;
     @IsString()
     @IsNotEmpty()

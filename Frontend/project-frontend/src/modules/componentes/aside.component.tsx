@@ -1,28 +1,67 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useUserStore } from '@/stores/useUserStore';
-import { Settings } from 'lucide-react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLayout } from "@/modules/hooks/useLayout";
+import { FaBars } from "react-icons/fa";
+import { useSidebar } from "@/modules/hooks/useSidebar";
 
-export default function AsideComponent() {
-  const { currentUser } = useUserStore();
+export default function Aside() {
+  const pathname = usePathname();
+  const { routes, title } = useLayout(pathname);
+  const { open, openSidebar, closeSidebar } = useSidebar();
 
   return (
-    <aside className="w-64 bg-gray-800 text-white flex flex-col justify-between p-4">
-      <nav className="space-y-4">
-        <Link href="/dashboard" className="block hover:underline">Inicio</Link>
-        <Link href="/tutorias" className="block hover:underline">Tutorías</Link>
-        {currentUser?.role === 'teacher' && (
-          <Link href="/reportes" className="block hover:underline">Reportes</Link>
-        )}
-      </nav>
-      <div className="border-t pt-4 mt-4 flex items-center justify-between">
-        <div>
-          <p className="text-sm font-bold">{currentUser?.firstName}</p>
-          <p className="text-xs">{currentUser?.role}</p>
+    <>
+      <button
+        className="p-4 focus:outline-none z-40 fixed top-4 left-4"
+        onClick={openSidebar}
+        aria-label="Abrir menú"
+        style={{ background: "rgba(255,255,255,0.85)", borderRadius: "50%" }}
+      >
+        <FaBars size={24} />
+      </button>
+      <aside
+        className={`
+          fixed top-0 left-0 h-full w-64 bg-gray-100 p-4 shadow-md z-50
+          transform transition-transform duration-300
+          ${open ? "translate-x-0" : "-translate-x-full"}
+        `}
+      >
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-xl font-bold">{title}</h1>
+          <button
+            className="text-gray-500"
+            onClick={closeSidebar}
+            aria-label="Cerrar menú"
+          >
+            ✕
+          </button>
         </div>
-        <Settings className="w-5 h-5 cursor-pointer" />
-      </div>
-    </aside>
+        <nav>
+          <ul className="space-y-2">
+            {routes.map(({ path, name }) => (
+              <li key={path}>
+                <Link
+                  href={path}
+                  className={`block px-3 py-2 rounded hover:bg-gray-300 ${
+                    pathname === path ? "bg-gray-300 font-semibold" : ""
+                  }`}
+                  onClick={closeSidebar}
+                >
+                  {name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+      {open && (
+        <div
+          className="fixed inset-0 bg-white/10 backdrop-blur-lg z-40 transition-all"
+          onClick={closeSidebar}
+        />
+      )}
+    </>
   );
 }

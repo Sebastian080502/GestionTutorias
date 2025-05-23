@@ -34,7 +34,7 @@ export class StudentService extends PrismaClient implements OnModuleInit {
     });
   }
 
-  remove(id: string) {
-    return this.student.delete({ where: { id } });
+  async remove(id: string) {
+    return await this.student.delete({ where: { id } });
   }
 }

@@ -84,8 +84,8 @@ export class UserService extends PrismaClient implements OnModuleInit {
     return this.user.update({ where: { id }, data: updateUserDto });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     console.log("Eliminando usuario con ID:", id);
-    return this.user.delete({ where: { id } });
+    return await this.user.delete({ where: { id } });
   }
 }

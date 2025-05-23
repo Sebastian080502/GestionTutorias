@@ -4,6 +4,7 @@ import Header from "@/modules/componentes/Header";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/modules/hooks/useAuth";
 import { useEffect } from "react";
+import AsideComponent from "@/modules/componentes/aside.component";
 
 export default function HomePage() {
   const router = useRouter();
@@ -29,6 +30,8 @@ export default function HomePage() {
           </p>
         </div>
       </main>
+      
     </>
+    
   );
 }

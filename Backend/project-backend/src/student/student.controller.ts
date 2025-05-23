@@ -8,9 +8,9 @@ export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
   @Post()
-  create(@Body() createStudentDto: CreateStudentDto) {
+  async create(@Body() createStudentDto: CreateStudentDto) {
     console.log(createStudentDto);
-    return this.studentService.create(createStudentDto);
+    return await this.studentService.create(createStudentDto);
   }
 
   @Get()
@@ -24,7 +24,7 @@ export class StudentController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.studentService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.studentService.remove(id);
   }
 }

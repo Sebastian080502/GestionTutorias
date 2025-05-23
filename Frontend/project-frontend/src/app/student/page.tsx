@@ -6,7 +6,7 @@ import StudentForm from "@/modules/componentes/studentForm";
 export default function StudentDashboard() {
   return (
     <div className="p-6">
-      <StudentForm idUser={""} />
+      <StudentForm/>
     </div>
   );
 }

@@ -12,7 +12,6 @@ export class AuthService {
     const user = await this.userService.findByEmail(email);
 
     if (!user || user.password !== password || user.role !== role) {
-      throw new UnauthorizedException('Usuario o contraseña incorrectos');
     }
 
     return {
@@ -21,3 +20,5 @@ export class AuthService {
     };
   }
 }
+ //throw new UnauthorizedException('Usuario o contraseña incorrectos');
+    //}

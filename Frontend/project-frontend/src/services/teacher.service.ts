@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { axiosClient } from './axios.service';
 
 export const createTeacher = async (data: {
   idUser: string;
@@ -6,7 +7,7 @@ export const createTeacher = async (data: {
   disponibilidad: string;
 }) => {
   try {
-    const response = await axios.post('/api/teacher', data);
+    const response = await axiosClient.post('/teacher', data);
     return response.data;
   } catch (error) {
     console.error('Error al crear docente', error);
@@ -16,7 +17,7 @@ export const createTeacher = async (data: {
 
 export const getAllTeachers = async () => {
   try {
-    const response = await axios.get('/api/teacher');
+    const response = await axiosClient.get('/teacher');
     return response.data;
   } catch (error) {
     console.error('Error al obtener docentes', error);

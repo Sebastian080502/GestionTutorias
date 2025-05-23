@@ -8,7 +8,7 @@ export default function TeacherDashboard() {
     
     <div className="p-6">
      
-      <TeacherForm idUser="" />
+      <TeacherForm />
       
   
     </div>

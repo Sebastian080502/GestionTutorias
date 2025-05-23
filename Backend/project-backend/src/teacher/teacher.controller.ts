@@ -9,6 +9,7 @@ export class TeacherController {
 
   @Post()
  async create(@Body() createTeacherDto: CreateTeacherDto) {
+  console.log(createTeacherDto);
     return await this.teacherService.create(createTeacherDto);
   }
 
@@ -23,7 +24,7 @@ export class TeacherController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.teacherService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.teacherService.remove(id);
   }
 }
